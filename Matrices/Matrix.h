@@ -116,6 +116,38 @@ public:
 		transpose();
 	}
 
+	void removeRow(int row) {
+		if (row < 0 || row >= rows)
+			throw runtime_error("la fila ingresada se sale del rango");
+		Matrix<E> temp(rows - 1, columns);
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < columns; j++) {
+				temp.setValue(i, j, matrix[i][j]);
+			}
+		}
+		for (int i = row + 1; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				temp.setValue(i - 1, j, matrix[i][j]);
+			}
+		}
+		for (int i = 0; i < rows; i++) {
+			delete[] matrix[i];
+		}
+		delete[] matrix;
+		matrix = temp.matrix;
+		rows = rows - 1;
+
+		temp.matrix = nullptr;
+		temp.rows = 0;
+		temp.columns = 0;
+	}
+
+	void removeColumn(int col) {
+		transpose();
+		removeRow(col);
+		transpose();
+	}
+
 	void print() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
