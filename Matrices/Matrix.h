@@ -1,8 +1,11 @@
 #pragma once
 
 #include <stdexcept>
+#include <iostream>
 
 using std::runtime_error;
+using std::cout;
+using std::endl;
 
 template <typename E>
 class Matrix{
@@ -36,13 +39,12 @@ public:
 		return matrix[row][column];
 	}
 
-	E setValue(int row, int column, E value) {
+	void setValue(int row, int column, E value) {
 		if (row < 0 || row >= rows)
 			throw runtime_error("fila invalida");
 		if (column < 0 || column >= columns)
 			throw runtime_error("columna invalida");
 		matrix[row][column] = value;
-		return value;
 	}
 
 	int getRows() {
@@ -83,6 +85,44 @@ public:
 		temp.matrix = nullptr;
 		temp.rows = 0;
 		temp.columns = 0;
+	}
+
+	void addRow(E value) {
+		Matrix<E> temp(rows + 1, columns);
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				temp.setValue(i, j, matrix[i][j]);
+			}
+		}
+		for (int j = 0; j < columns; j++) {
+			temp.setValue(rows, j, value);
+		}
+		for (int i = 0; i < rows; i++) {
+			delete[] matrix[i];
+		}
+		delete[] matrix;
+
+		matrix = temp.matrix;
+		rows = rows + 1;
+
+		temp.matrix = nullptr;
+		temp.rows = 0;
+		temp.columns = 0;
+	}
+
+	void addColumn(E value) {
+		transpose();
+		addRow(value);
+		transpose();
+	}
+
+	void print() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				cout << "|" << matrix[i][j] << "|";
+			}
+			cout << endl;
+		}
 	}
 };
 

@@ -14,7 +14,8 @@ int main() {
 
     for (int i = 0; i < matriz->getRows(); i++) {
         for (int j = 0; j < matriz->getColumns(); j++) {
-            cout << matriz->getValue(i, j) << "\t";
+            matriz->getValue(i, j);
+			matriz->print();
         }
         cout << endl;
 	}
@@ -28,10 +29,13 @@ int main() {
 
     for (int i = 0; i < matriz->getRows(); i++) {
         for (int j = 0; j < matriz->getColumns(); j++) {
-            cout << matriz->getValue(i, j) << "\t";
+            matriz->getValue(i, j);
+            matriz->print();
         }
         cout << endl;
     }
+
+
 
 
 	delete matriz;
