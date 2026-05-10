@@ -52,5 +52,37 @@ public:
 	int getColumns() {
 		return columns;
 	}
+
+	void setAll(E value) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				matrix[i][j] = value;
+			}
+		}
+	}
+
+	void transpose() {
+		Matrix<E> temp(columns, rows);
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				temp.setValue(j, i, matrix[i][j]);
+			}
+		}
+
+		for (int i = 0; i < rows; i++) {
+			delete[] matrix[i];
+		}
+		delete[] matrix;
+
+		matrix = temp.matrix;
+		int tempFilas = rows;
+		rows = columns;
+		columns = tempFilas;
+
+		temp.matrix = nullptr;
+		temp.rows = 0;
+		temp.columns = 0;
+	}
 };
 
