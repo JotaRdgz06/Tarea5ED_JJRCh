@@ -16,7 +16,7 @@ private:
 public:
 	Matrix(int rows, int columns) {
 		if (rows <= 0 || columns <= 0)
-			throw runtime_error("Filas y columnas deben ser positivas ");
+			throw runtime_error("Filas y columnas deben ser positivas");
 		this->rows = rows;
 		this->columns = columns;
 		matrix = new E* [rows];
