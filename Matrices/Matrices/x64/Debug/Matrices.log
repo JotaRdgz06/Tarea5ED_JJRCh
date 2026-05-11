@@ -1,2 +1,3 @@
 ﻿  Matrices.cpp
+C:\Users\julia\OneDrive - Estudiantes ITCR\Trabajos Universidad\IS-2026\Estructuras\GitHub\Tarea5ED_JJRCh\Tarea5ED_JJRCh\Matrices\Matrices.cpp(247,16): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
   Matrices.vcxproj -> C:\Users\julia\OneDrive - Estudiantes ITCR\Trabajos Universidad\IS-2026\Estructuras\GitHub\Tarea5ED_JJRCh\Tarea5ED_JJRCh\Matrices\x64\Debug\Matrices.exe

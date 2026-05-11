@@ -86,12 +86,30 @@ int main() {
 					break;
 				case 2:
 					int filaObtener, columnObtener;
-					cout << "Ingrese la fila: ";
-					cin >> filaObtener;
+					do {
+						cout << "Ingrese la fila: ";
+						cin >> filaObtener;
+						if (cin.fail() || filaObtener <= 0 || filaObtener > matriz->getRows()) {
+							cout << "Error: Valor ingresado fuera de rango, ingrese un valor 1 y "
+								<< matriz->getRows();
+							cout << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (cin.fail() || filaObtener <= 0 || filaObtener > matriz->getRows());
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << "Ingrese la columna: ";
-					cin >> columnObtener;
+					do {
+						cout << "Ingrese la columna: ";
+						cin >> columnObtener;
+						if (cin.fail() || columnObtener <= 0 || columnObtener > matriz->getColumns()) {
+							cout << "Error: Valor ingresado fuera de rango, ingrese un valor 1 y "
+								<< matriz->getColumns();
+							cout << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (cin.fail() || columnObtener <= 0 || columnObtener > matriz->getColumns());
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << endl;
@@ -101,33 +119,53 @@ int main() {
 					break;
 				case 3:
 					int filaBuscar, columnBuscar, valorInsert;
-					cout << "Ingrese la fila: ";
-					cin >> filaBuscar;
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << "Ingrese la columna: ";
-					cin >> columnBuscar;
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << "Ingrese el valor a insertar: ";
-					cin >> valorInsert;
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					do {
+						cout << "Ingrese la fila: ";
+						cin >> filaBuscar;
+						if (cin.fail() || filaBuscar <= 0 || filaBuscar > matriz->getRows()) {
+							cout << "Error: Ingrese un valor entre 1 y " << matriz->getRows() << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (cin.fail() || filaBuscar <= 0 || filaBuscar > matriz->getRows());
+					do {
+						cout << "Ingrese la columna: ";
+						cin >> columnBuscar;
+						if (cin.fail() || columnBuscar <= 0 || columnBuscar > matriz->getColumns()) {
+							cout << "Error: Ingrese un valor entre 1 y " << matriz->getColumns() << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (cin.fail() || columnBuscar <= 0 || columnBuscar > matriz->getColumns());
+					do {
+						cout << "Ingrese el valor a insertar: ";
+						cin >> valorInsert;
+						if (cin.fail()) {
+							cout << "Error: Ingrese un numero valido" << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (cin.fail());
 					matriz->setValue(filaBuscar - 1, columnBuscar - 1, valorInsert);
 					cout << "Se ha insertado el valor " << valorInsert << " en la fila " << filaBuscar << " y columna " << columnBuscar << endl;
 					break;
 				case 4:
-					cout << "actualmente hay " << matriz->getRows() << "filas";
+					cout << endl << "actualmente hay " << matriz->getRows() << " filas"
+						<< endl << endl;
 					break;
 				case 5:
-					cout << "actualmente hay " << matriz->getColumns() << "columnas";
+					cout << endl << "actualmente hay " << matriz->getColumns() << " columnas"
+						<< endl << endl;
 					break;
 				case 6:
 					int valorAll;
-					cout << "Ingrese el valor a establecer en toda la matriz: ";
-					cin >> valorAll;
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					do {
+						cout << "Ingrese el valor a establecer en toda la matriz: ";
+						cin >> valorAll;
+						if (valorAll < 0) {
+							cout << "Error: Ingrese un numero mayor o igual a 0" << endl;
+						}
+					} while (valorAll < 0);
 					matriz->setAll(valorAll);
 					cout << "Se ha establecido el valor " << valorAll << " en toda la matriz" << endl;
 					break;
@@ -140,8 +178,16 @@ int main() {
 				case 8:
 					cout << endl;
 					int valorRow;
-					cout << "Ingrese el valor a establecer en la nueva fila: ";
-					cin >> valorRow;
+					do {
+						cout << "Ingrese el valor a establecer en la nueva fila: ";
+						cin >> valorRow;
+						if (valorRow < 0) {
+							cout << "Error: Ingrese un valor mayor o igual a 0";
+							cout << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (valorRow < 0);
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					matriz->addRow(valorRow);
@@ -149,8 +195,16 @@ int main() {
 					break;
 				case 9:
 					int valorColumn;
-					cout << "Ingrese el valor a establecer en la nueva columna: ";
-					cin >> valorColumn;
+					do {
+						cout << "Ingrese el valor a establecer en la nueva columna: ";
+						cin >> valorColumn;
+						if (valorColumn < 0) {
+							cout << "Error: Ingrese un valor mayor o igual a 0";
+							cout << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (valorColumn < 0);
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					matriz->addColumn(valorColumn);
@@ -159,21 +213,38 @@ int main() {
 					break;
 				case 10:
 					int valorRemoveR;
-					cout << "Ingrese el numero de la fila que desea eliminar: ";
-					cin >> valorRemoveR;
+					do {
+						cout << "Ingrese el numero de la fila que desea eliminar entre 1 y " << matriz->getRows() << ": ";
+						cin >> valorRemoveR;
+						if (cin.fail() || valorRemoveR < 0 || valorRemoveR >= matriz->getRows()) {
+							cout << "Error: Ingrese un valor mayor o igual a 0 y menor a " << matriz->getRows();
+							cout << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (cin.fail() || valorRemoveR < 0 || valorRemoveR >= matriz->getRows());
 					matriz->removeRow(valorRemoveR - 1);
 					cout << "Se ha eliminado la fila " << valorRemoveR << endl << endl;
 					break;
 				case 11:
 					int valorRemoveC;
-					cout << "Ingrese el numero de la columna que desea eliminar: ";
-					cin >> valorRemoveC;
+					do {
+						cout << "Ingrese el numero de la columna que desea eliminar entre 1 y " << matriz->getColumns() << ": ";
+						cin >> valorRemoveC;
+						if (cin.fail() || valorRemoveC < 0 || valorRemoveC >= matriz->getColumns()) {
+							cout << "Error: Ingrese un valor mayor o igual a 0 y menor a " << matriz->getColumns();
+							cout << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
+					} while (cin.fail() || valorRemoveC < 0 || valorRemoveC >= matriz->getColumns());
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					matriz->removeColumn(valorRemoveC - 1);
 					cout << "Se ha eliminado la columna " << valorRemoveC << endl;
 					break;
 				case 12:
+					srand(time(0));
 					for (int i = 0; i < matriz->getRows(); i++) {
 						for (int j = 0; j < matriz->getColumns(); j++) {
 							matriz->setValue(i, j, rand() % 100);
